@@ -42,7 +42,6 @@
 			this.WindowsSMTPServerServiceInstaller.Description = "The Windows SMTP Service";
 			this.WindowsSMTPServerServiceInstaller.DisplayName = "Windows SMTP Service";
 			this.WindowsSMTPServerServiceInstaller.ServiceName = "WinSMTPService";
-			this.WindowsSMTPServerServiceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
 			// 
 			// WinSMTPServerInstaller
 			// 

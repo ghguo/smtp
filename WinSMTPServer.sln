@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinSMTPServer", "WinSMTPServer\WinSMTPServer.csproj", "{329CFA85-D30C-474A-B586-035C38B7B106}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinSMTPConsole", "WinSMTPConsole\WinSMTPConsole.csproj", "{5D6F6849-D0B1-4D5C-BAFA-2AE2BF1AA35B}"
@@ -12,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegisterEventSource", "RegisterEventSource\RegisterEventSource.csproj", "{41F00129-0617-441F-B599-D8CE06149EB1}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WinSMTPServerInstaller", "WinSMTPServerInstaller\WinSMTPServerInstaller.vdproj", "{A4F9E7E9-ECB7-4093-B57D-7AC54C6BED0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnDns", "DnDns\DnDns.csproj", "{53089CAB-AE06-4BE6-9E23-CCCC03730EEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnDnsExamples", "DnDnsExamples\DnDnsExamples.csproj", "{8112FE7A-6F72-48A7-A088-5AC8FA221985}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,8 +47,19 @@ Global
 		{41F00129-0617-441F-B599-D8CE06149EB1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A4F9E7E9-ECB7-4093-B57D-7AC54C6BED0C}.Debug|Any CPU.ActiveCfg = Debug
 		{A4F9E7E9-ECB7-4093-B57D-7AC54C6BED0C}.Release|Any CPU.ActiveCfg = Release
+		{53089CAB-AE06-4BE6-9E23-CCCC03730EEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53089CAB-AE06-4BE6-9E23-CCCC03730EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53089CAB-AE06-4BE6-9E23-CCCC03730EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53089CAB-AE06-4BE6-9E23-CCCC03730EEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8112FE7A-6F72-48A7-A088-5AC8FA221985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8112FE7A-6F72-48A7-A088-5AC8FA221985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8112FE7A-6F72-48A7-A088-5AC8FA221985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8112FE7A-6F72-48A7-A088-5AC8FA221985}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {958B04EE-3F15-4196-82E0-263E8CCDE326}
 	EndGlobalSection
 EndGlobal

@@ -47,27 +47,27 @@ namespace WinSMTPServer
 		/// </summary>
 		static void Main(string [] args)
 			{
-#if (DEBUG)
-			WinSMTPService service = new WinSMTPService();
-			service.Start(new string[] {});
-#else
-			// See the following for creating and installing a Windows Service:
-			// http://msdn.microsoft.com/en-us/library/zt39148a(VS.80).aspx
+			//#if (DEBUG)
+			//WinSMTPService service = new WinSMTPService();
+			//service.Start(new string[] { });
+			//#else
+			//// See the following for creating and installing a Windows Service:
+			//// http://msdn.microsoft.com/en-us/library/zt39148a(VS.80).aspx
 
-			// More than one user Service may run within the same process. To add
-			// another service to this process, change the following line to
-			// create a second service object. For example,
-			//
-			//   ServicesToRun = new ServiceBase[] {new Service1(), new MySecondUserService()};
-			//
+			//// More than one user Service may run within the same process. To add
+			//// another service to this process, change the following line to
+			//// create a second service object. For example,
+			////
+			////   ServicesToRun = new ServiceBase[] {new Service1(), new MySecondUserService()};
+			////
 
-			ServiceBase[] ServicesToRun = new ServiceBase[] 
-				{ 
-				new WinSMTPService() 
+			ServiceBase[] ServicesToRun = new ServiceBase[]
+				{
+				new WinSMTPService()
 				};
 
 			ServiceBase.Run(ServicesToRun);
-#endif
-			}
+			//#endif
+		}
 		}
 	}

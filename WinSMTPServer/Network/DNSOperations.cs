@@ -66,7 +66,7 @@ namespace WinSMTPServer.Network
 				DnsQueryRequest request = new DnsQueryRequest();
 				try
 					{
-					response = request.Resolve(NSName,domain.ToString(),NsType.MX,NsClass.INET,ProtocolType.Udp);
+					response = request.Resolve(NSName,domain.ToString(),NsType.MX,NsClass.INET,ProtocolType.Udp, null);
 					}
 				catch (Exception ex)
 					{

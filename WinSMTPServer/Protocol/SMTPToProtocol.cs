@@ -52,13 +52,14 @@ namespace WinSMTPServer.Protocol
 						WriteLine("500 Unknown command");
 						return this;
 						}
-					else if (string.Compare(parts[1],"TO:",true) != 0)
-						{
+					//else if (string.Compare(parts[1],"TO:",true) != 0)
+					else if (!parts[1].Contains("TO:"))
+					{
 						WriteLine("500 Unknown command");
 						return this;
 						}
 
-					if (parts.Length < 3)
+					if (parts.Length < 2)
 						{
 						WriteLine("501 Incorrect address format");
 						return this;
