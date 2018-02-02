@@ -1,0 +1,184 @@
+USE [WinSMTPServerDB]
+GO
+USE [WinSMTPServerDB]
+GO
+/****** Object:  Table [dbo].[Connection]    Script Date: 05/07/2010 18:58:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Connection](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Remote] [varchar](150) NOT NULL,
+	[StartTime] [datetime] NOT NULL,
+	[EndTime] [datetime] NULL,
+	[IsInbound] [bit] NOT NULL,
+ CONSTRAINT [PK_Connection] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Configuration]    Script Date: 05/07/2010 18:58:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Configuration](
+	[ID] [int] NOT NULL,
+	[AllowLocalHost] [bit] NOT NULL,
+	[AllowRemote] [bit] NOT NULL,
+	[Port] [smallint] NOT NULL,
+	[ExpireAfterMinutes] [int] NOT NULL,
+	[RetryAfterMinutes] [int] NOT NULL,
+	[CleanupDays] [int] NOT NULL,
+ CONSTRAINT [PK_Configuration] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Body]    Script Date: 05/07/2010 18:58:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING OFF
+GO
+CREATE TABLE [dbo].[Body](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[MessageIdentifier] [varchar](32) NOT NULL,
+	[HeaderText] [varchar](max) NULL,
+	[BodyText] [varchar](max) NULL,
+ CONSTRAINT [PK_Body] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [IX_Body_MessageIdentifier] UNIQUE NONCLUSTERED 
+(
+	[MessageIdentifier] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Allowed]    Script Date: 05/07/2010 18:58:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Allowed](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[IP] [varchar](15) NOT NULL,
+	[Subnet] [varchar](15) NOT NULL,
+ CONSTRAINT [PK_Allowed] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Header]    Script Date: 05/07/2010 18:58:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Header](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[BodyID] [int] NULL,
+	[Sender] [varchar](250) NOT NULL,
+	[Recipient] [varchar](250) NOT NULL,
+	[RecvConnectionID] [int] NOT NULL,
+	[SendConnectionID] [int] NULL,
+	[ReceivedDateTime] [datetime] NOT NULL,
+	[DeliveredDateTime] [datetime] NULL,
+	[ExpiredDateTime] [datetime] NULL,
+ CONSTRAINT [PK_Header] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[DeliveryAttempt]    Script Date: 05/07/2010 18:58:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[DeliveryAttempt](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[HeaderID] [int] NOT NULL,
+	[AttemptDateTime] [datetime] NOT NULL,
+	[ConnectionID] [int] NULL,
+	[MXAddress] [varchar](150) NOT NULL,
+	[IsSuccess] [bit] NOT NULL,
+	[FailureReason] [varchar](255) NULL,
+ CONSTRAINT [PK_DeliveryAttempt] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Default [DF_Configuration_AllowLocalHost]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[Configuration] ADD  CONSTRAINT [DF_Configuration_AllowLocalHost]  DEFAULT ((1)) FOR [AllowLocalHost]
+GO
+/****** Object:  Default [DF_Configuration_AllowRemote]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[Configuration] ADD  CONSTRAINT [DF_Configuration_AllowRemote]  DEFAULT ((0)) FOR [AllowRemote]
+GO
+/****** Object:  Default [DF_Configuration_Port]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[Configuration] ADD  CONSTRAINT [DF_Configuration_Port]  DEFAULT ((25)) FOR [Port]
+GO
+/****** Object:  Default [DF_Configuration_ExpireAfterMinutes]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[Configuration] ADD  CONSTRAINT [DF_Configuration_ExpireAfterMinutes]  DEFAULT ((1440)) FOR [ExpireAfterMinutes]
+GO
+/****** Object:  Default [DF_Configuration_RetryAfterMinutes]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[Configuration] ADD  CONSTRAINT [DF_Configuration_RetryAfterMinutes]  DEFAULT ((10)) FOR [RetryAfterMinutes]
+GO
+/****** Object:  Default [DF_Configuration_CleanupDays]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[Configuration] ADD  CONSTRAINT [DF_Configuration_CleanupDays]  DEFAULT ((30)) FOR [CleanupDays]
+GO
+/****** Object:  ForeignKey [FK_DeliveryAttempt_Connection]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[DeliveryAttempt]  WITH CHECK ADD  CONSTRAINT [FK_DeliveryAttempt_Connection] FOREIGN KEY([ConnectionID])
+REFERENCES [dbo].[Connection] ([ID])
+GO
+ALTER TABLE [dbo].[DeliveryAttempt] CHECK CONSTRAINT [FK_DeliveryAttempt_Connection]
+GO
+/****** Object:  ForeignKey [FK_DeliveryAttempt_Header]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[DeliveryAttempt]  WITH CHECK ADD  CONSTRAINT [FK_DeliveryAttempt_Header] FOREIGN KEY([HeaderID])
+REFERENCES [dbo].[Header] ([ID])
+GO
+ALTER TABLE [dbo].[DeliveryAttempt] CHECK CONSTRAINT [FK_DeliveryAttempt_Header]
+GO
+/****** Object:  ForeignKey [FK_Header_Body]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[Header]  WITH CHECK ADD  CONSTRAINT [FK_Header_Body] FOREIGN KEY([BodyID])
+REFERENCES [dbo].[Body] ([ID])
+GO
+ALTER TABLE [dbo].[Header] CHECK CONSTRAINT [FK_Header_Body]
+GO
+/****** Object:  ForeignKey [FK_Header_Connection]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[Header]  WITH CHECK ADD  CONSTRAINT [FK_Header_Connection] FOREIGN KEY([RecvConnectionID])
+REFERENCES [dbo].[Connection] ([ID])
+GO
+ALTER TABLE [dbo].[Header] CHECK CONSTRAINT [FK_Header_Connection]
+GO
+/****** Object:  ForeignKey [FK_Header_Connection1]    Script Date: 05/07/2010 18:58:37 ******/
+ALTER TABLE [dbo].[Header]  WITH CHECK ADD  CONSTRAINT [FK_Header_Connection1] FOREIGN KEY([SendConnectionID])
+REFERENCES [dbo].[Connection] ([ID])
+GO
+ALTER TABLE [dbo].[Header] CHECK CONSTRAINT [FK_Header_Connection1]
+GO
+

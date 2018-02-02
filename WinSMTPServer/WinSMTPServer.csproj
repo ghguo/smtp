@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{329CFA85-D30C-474A-B586-035C38B7B106}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WinSMTPServer</RootNamespace>
+    <AssemblyName>WinSMTPServer</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>WinSMTPServer.Launcher</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DnDns, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Client\Forwarder.cs" />
+    <Compile Include="Mail\MessageSupport.cs" />
+    <Compile Include="Network\DNSFetcher.cs" />
+    <Compile Include="Network\DNSOperations.cs" />
+    <Compile Include="Network\MXRecord.cs" />
+    <Compile Include="Network\Services.cs" />
+    <Compile Include="WinSMTPServerInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinSMTPServerInstaller.Designer.cs">
+      <DependentUpon>WinSMTPServerInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Protocol\SMTPData.cs" />
+    <Compile Include="Protocol\SMTPDataProtocol.cs" />
+    <Compile Include="Protocol\SMTPFromProtocol.cs" />
+    <Compile Include="Protocol\SMTPMessageDoneProtocol.cs" />
+    <Compile Include="Protocol\SMTPProtocol.cs" />
+    <Compile Include="Protocol\SMTPStartProtocol.cs" />
+    <Compile Include="Protocol\SMTPToProtocol.cs" />
+    <Compile Include="Protocol\SMTPUtil.cs" />
+    <Compile Include="Session\InboundSession.cs" />
+    <Compile Include="Session\ISession.cs" />
+    <Compile Include="Session\OutboundSession.cs" />
+    <Compile Include="Session\SessionManager.cs" />
+    <Compile Include="Server\SMTPServer.cs" />
+    <Compile Include="SMTPClient\SMTPClient.cs" />
+    <Compile Include="WinSMTPService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinSMTPService.Designer.cs">
+      <DependentUpon>WinSMTPService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Launcher.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SupportLibrary\SupportLibrary.csproj">
+      <Project>{385E010B-969E-4A4C-BAF7-0387BEFADE20}</Project>
+      <Name>SupportLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\DnDns.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WinSMTPServerInstaller.resx">
+      <DependentUpon>WinSMTPServerInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
