@@ -116,6 +116,12 @@ namespace WinSMTPServer.Client
 				if (header.DeliveredDateTime == null || header.ExpiredDateTime == null)
 					SupportLibrary.Logger.SystemLogger.LogError("Forwarder.CleanupOldMail()","Deleting message ID " + header.ID + " which was not delivered.");
 
+				IList<DeliveryAttemptRecord>  oldDeliveries = DeliveryAttemptDataSource.ReadAllRecordsByHeaderID(header.ID);
+				foreach (DeliveryAttemptRecord delivery in oldDeliveries)
+					{
+					DeliveryAttemptDataSource.DeleteRecord(delivery.ID);
+					}
+
 				HeaderDataSource.DeleteRecord(header.ID);
 				if (body != null)
 					BodyDataSource.DeleteRecord(body.ID);
